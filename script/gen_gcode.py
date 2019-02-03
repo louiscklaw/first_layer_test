@@ -18,7 +18,7 @@ SLIC3R_CONFIG = r'C:\temp\first_layer_test\config\windows.ini'
 STL_PATH = r'C:\temp\first_layer_test\test_pattern\test_pattern.stl'
 GCODE_OUTPUT_PATH=r'''C:\temp\first_layer_test\test_pattern\output'''
 
-SLIC3R_COMMAND = r'''{SLIC3R_BIN_PATH} -load "{slic3r_config}" "{stl_file}" -o "{gcode_output_path}\output_{x_pos}_{y_pos}_temp{temp}_speed{speed}.gcode" --print-center {x_pos} {y_pos}'''
+SLIC3R_COMMAND = r'''{SLIC3R_BIN_PATH} -load "{slic3r_config}" "{stl_file}" -o "{gcode_output_path}\output_{x_pos}_{y_pos}_temp{temp}_speed{first_layer_speed}.gcode" --temperature {temp} --first-layer-speed {first_layer_speed} --print-center {x_pos} {y_pos}'''
 
 class print_head:
     x=0
@@ -37,7 +37,7 @@ class print_head:
     def get_pos(self):
         return (self.x, self.y)
 
-def gen_slic3r(x_pos,y_pos, temp, speed):
+def gen_slic3r(x_pos,y_pos, temp, first_layer_speed):
     #  .\slic3r-console.exe -load "C:\temp\first_layer_test\config\windows.ini" "C:\temp\first_layer_test\test_pattern\test_pattern.stl" -o "C:\temp\first_layer_test\test_pattern\output\output1.gcode" --print-center 100 100
     #print('printing on {},{}'.format(ph_loc[0],ph_loc[1]))
     #print("{} / {}".format(temp, speed))
@@ -45,7 +45,7 @@ def gen_slic3r(x_pos,y_pos, temp, speed):
         x_pos=x_pos, 
         y_pos=y_pos, 
         temp=temp, 
-        speed=speed, 
+        first_layer_speed=first_layer_speed,
         gcode_output_path=GCODE_OUTPUT_PATH,
         stl_file = STL_PATH,
         SLIC3R_BIN_PATH=SLIC3R_BIN_PATH,
